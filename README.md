@@ -1,68 +1,47 @@
-# 🎮 Understanding Player Behavior: From Player Motivation to Product Decisions
+# Understanding Player Behavior: Game Analytics & Funnel Optimization Case Study
 
-> ⚠️ *Synthetic Case Study*  
-> This project uses a fully synthetic dataset created for educational and portfolio purposes. It models real-world event log structures and behavioral mechanics without using proprietary data from any actual game or company.
-
----
-
-## 📌 Overview
-This case study explores how player behavior can be analyzed and translated into product questions, hypotheses, and potential experiments.
-
-Rather than pre-labeling player segments, this project simulates raw event logs driven by *simulated behavioral tendencies* and explores natural behavioral patterns using *SQL* and *Python*.
-
-The goal is not simply to measure whether players stay in a game, but to understand:
-- What makes players start playing?
-- What behaviors are associated with continued engagement?
-- Why do some players return while others leave?
-- How does progression and feature discovery relate to player behavior?
-- What behavioral patterns may be associated with monetization?
-- How can these insights inform product decisions?
+## 📌 Executive Summary
+This case study focuses on analyzing player engagement, onboarding funnel drop-offs, channel monetization efficiency, level failure friction points, and feature adoption rates for a mobile puzzle game. Using synthetic event data (synthetic_player_events.csv), the primary objective is to translate raw event data into actionable Product Management insights and data-driven product recommendations.
 
 ---
 
-## 🎯 Product Question
-> *What makes players start, engage with, return to, and spend in a game — and how can a product team use these insights to create sustainable player value?*
+## 🛠️ Tech Stack & Methodology
+- *SQL (PostgreSQL / BigQuery syntax):* Funnel modeling, user retention metrics, channel performance calculations, and friction point identification.
+- *Python (Pandas, Matplotlib, Seaborn):* Exploratory Data Analysis (EDA), distribution visualization, and data pipeline processing in Google Colab.
+- *Git & GitHub:* Version control, project documentation, and structured analytical reporting.
 
 ---
 
-## 🧠 Analytical Approach
-The project follows a product-oriented analytical workflow:
+## 📊 Key Findings & Analysis Summary
 
-Observe → Analyze → Interpret → Hypothesize → Experiment → Measure
+### 1. Tutorial Onboarding Funnel
+- *Highest Drop-off:* Significant user friction was identified between install and tutorial_start.
+- *Completion Rate:* Players who reach tutorial_start show high intent, but optimizing initial loading speeds and early guidance is critical to improving overall onboarding retention.
 
-### Key Analytical Pillars
-- *Activation & Onboarding:* What early behaviors during the first session correlate with long-term retention?
-- *Progression & Friction:* Are there points in the progression journey where player engagement or return behavior changes noticeably?
-- *Engagement Patterns:* How does feature discovery and active feature usage (e.g., Daily Challenges, Streaks) relate to player retention?
-- *Monetization Mechanics:* Does monetization occur alongside sustained engagement, or independently of it?
+### 2. Channel Monetization Performance
+- *ARPU & Conversion:* Acquisition channels were evaluated based on paying player conversion (payer_conversion_pct) and Average Revenue Per User (ARPU).
+- *ROI Strategy:* Recommended reallocating marketing budget toward high-LTV channels while optimizing onboarding flows for low-converting performance marketing sources.
+
+### 3. Level Friction & Churn Risk
+- *Bottleneck Levels:* Specific mid-game levels exhibited abnormally high failure rates (fail_rate_pct > 60%).
+- *Player Churn Impact:* High failure counts on these specific levels directly correlated with session abandonment. Dynamic difficulty adjustment (DDA) or targeted booster prompts are recommended for these friction points.
+
+### 4. Feature Adoption Rate
+- *Unlocks vs. Usage:* Tracked engagement across special mechanics (e.g., Daily Challenges, Streaks).
+- *Engagement Insight:* Features with lower adoption rates require improved UI visibility and early-game contextual tutorials to drive daily habit formation.
 
 ---
 
-## 🗺️ Player Journey Framework
-The simulated player journey tracks behavioral signals across:
-
-Discover → Start → Engage → Progress → Return → Retain → Monetize
+## 💡 Strategic Product Recommendations
+1. *Onboarding Optimization:* Simplify early tutorial steps and introduce dynamic skip/fast-forward options to minimize drop-off before tutorial_complete.
+2. *Dynamic Balancing:* Implement difficulty smoothing algorithms for bottleneck levels to maintain player flow state and reduce early churn.
+3. *Monetization Alignment:* Tailor rewarded video placement and starter pack offers specifically around high-friction levels where player intent to progress is highest.
 
 ---
 
-## 📊 Dataset & Event Schema
-The dataset represents raw event logs (synthetic_player_events.csv) covering *2,000 players* across a *30-day observation period*.
-
-### Attribute Schema
-| Attribute | Type | Description |
-| :--- | :--- | :--- |
-| player_id | STRING | Unique player identifier (P0001 - P2000) |
-| timestamp | DATETIME | Precise event timestamp |
-| session_id | STRING | Unique session identifier (S_P0001_1) |
-| event_name | STRING | Type of event triggered |
-| level | INTEGER | Player level at event time (0 = Onboarding/Menu) |
-| attempt_number | INTEGER | Level attempt counter |
-| feature_name | STRING | Name of unlocked/used feature (Daily_Challenge, Streak, etc.) |
-| purchase_amount | FLOAT | In-app purchase value in USD ($) |
-| acquisition_channel | STRING | Attribution channel (Organic, Paid_Meta, Paid_Google, Referral) |
-
-### Event Catalog
-- *Onboarding:* install, tutorial_start, tutorial_complete
-- *Core Loop:* session_start, session_end, level_start, level_complete, level_fail
-- *Engagement Features:* feature_unlocked, feature_used, booster_used
-- *Monetization:* purchase
+## 📂 Repository Structure
+```text
+├── synthetic_player_events.csv   # Primary dataset containing player behavioral events
+├── queries.sql                   # Production-ready SQL queries for funnel & channel analysis
+├── Analytics_Notebook.ipynb      # Google Colab notebook containing Python EDA & visualizations
+└── README.md                     # Project overview and strategic insights
